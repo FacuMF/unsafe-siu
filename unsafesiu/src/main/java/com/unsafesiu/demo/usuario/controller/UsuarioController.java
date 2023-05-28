@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 import java.util.List;
 
-@RequestMapping("/")
+@RequestMapping("/usuarios")
 @RestController
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("usuarios")
+    @GetMapping
     public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios() throws SQLException {
         List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
         return ResponseEntity.ok(usuarios);
