@@ -38,6 +38,8 @@ public class MateriaDAO{
             materias.add(materia);
 
         }
+        selectPreparedStatement.close();
+        selectResultSet.close();
 
         return materias;
     }

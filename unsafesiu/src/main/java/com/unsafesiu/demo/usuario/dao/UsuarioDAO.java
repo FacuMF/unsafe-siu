@@ -41,7 +41,6 @@ public class UsuarioDAO {
 
         selectPreparedStatement.close();
         selectResultSet.close();
-        conn.close();
 
         return usuarios;
     }

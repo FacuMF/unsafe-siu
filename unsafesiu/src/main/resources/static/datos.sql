@@ -13,7 +13,7 @@ CREATE TABLE Materia (
     NOMBRE VARCHAR
 );
 
-CREATE TABLE Inscripciones (
+CREATE TABLE Inscripcion (
     ID SERIAL PRIMARY KEY,
     ID_Alumno INTEGER REFERENCES Usuario(ID),
     ID_Materia INTEGER REFERENCES Materia(ID)
