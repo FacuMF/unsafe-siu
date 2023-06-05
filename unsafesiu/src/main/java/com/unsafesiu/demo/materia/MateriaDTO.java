@@ -1,4 +1,4 @@
-package com.unsafesiu.demo.materia.dto;
+package com.unsafesiu.demo.materia;
 
 public class MateriaDTO {
 

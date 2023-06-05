@@ -1,7 +1,5 @@
-package com.unsafesiu.demo.materia.controller;
+package com.unsafesiu.demo.materia;
 
-import com.unsafesiu.demo.materia.dto.MateriaDTO;
-import com.unsafesiu.demo.materia.service.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
