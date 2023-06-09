@@ -1,5 +1,6 @@
 package com.unsafesiu.demo.materia;
 
+import com.unsafesiu.demo.calificacion.CalificacionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +26,8 @@ public class MateriaController {
         return ResponseEntity.ok(materias);
 
     }
+
+//    @GetMapping(path = "{idMateria}")
+//    public ResponseEntity<List<CalificacionDTO>> obtenerCalificacionPorMateria
 
 }

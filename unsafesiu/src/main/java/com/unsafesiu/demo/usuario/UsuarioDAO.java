@@ -34,8 +34,8 @@ public class UsuarioDAO {
             usuario.setNombre(selectResultSet.getString("NOMBRE"));
             usuario.setApellido(selectResultSet.getString("APELLIDO"));
             usuario.setRol(Role.valueOf(selectResultSet.getString("ROL")));
-            usuario.setUsername(selectResultSet.getString("USERNAME"));
-            usuario.setPassword(selectResultSet.getString("PASSWORD"));
+            usuario.setUsername(selectResultSet.getString("USUARIO"));
+            usuario.setPassword(selectResultSet.getString("CONTRASENIA"));
 
             usuarios.add(usuario);
 
@@ -49,7 +49,7 @@ public class UsuarioDAO {
     
     public Optional<Usuario> findByUsername(String username) {
         Optional<Usuario> usuarios = Optional.ofNullable(null);
-        String selectQuery = "SELECT * FROM USUARIO WHERE USERNAME = '" + username + "'";
+        String selectQuery = "SELECT * FROM USUARIO WHERE USUARIO = '" + username + "'";
         Connection conn = postgresDatasource.getConnection();
         try {
 	        PreparedStatement selectPreparedStatement = conn.prepareStatement(selectQuery);
@@ -63,8 +63,8 @@ public class UsuarioDAO {
 	            usuario.setNombre(selectResultSet.getString("NOMBRE"));
 	            usuario.setApellido(selectResultSet.getString("APELLIDO"));
 	            usuario.setRol(Role.valueOf(selectResultSet.getString("ROL")));
-	            usuario.setUsername(selectResultSet.getString("USERNAME"));
-	            usuario.setPassword(selectResultSet.getString("PASSWORD"));
+	            usuario.setUsername(selectResultSet.getString("USUARIO"));
+	            usuario.setPassword(selectResultSet.getString("CONTRASENIA"));
 	            
 	            usuarios = Optional.ofNullable(usuario);
 	
@@ -82,7 +82,7 @@ public class UsuarioDAO {
     
     public Optional<Usuario> findByUsernameAndPassword(String username, String password) {
         Optional<Usuario> usuarios = Optional.ofNullable(null);
-        String selectQuery = "SELECT * FROM USUARIO WHERE USERNAME = '" + username + "' AND PASSWORD = '" + password + "'";
+        String selectQuery = "SELECT * FROM USUARIO WHERE USUARIO = '" + username + "' AND CONTRASENIA = '" + password + "'";
         Connection conn = postgresDatasource.getConnection();
         try {
 	        PreparedStatement selectPreparedStatement = conn.prepareStatement(selectQuery);
@@ -96,8 +96,8 @@ public class UsuarioDAO {
 	            usuario.setNombre(selectResultSet.getString("NOMBRE"));
 	            usuario.setApellido(selectResultSet.getString("APELLIDO"));
 	            usuario.setRol(Role.valueOf(selectResultSet.getString("ROL")));
-	            usuario.setUsername(selectResultSet.getString("USERNAME"));
-	            usuario.setPassword(selectResultSet.getString("PASSWORD"));
+	            usuario.setUsername(selectResultSet.getString("USUARIO"));
+	            usuario.setPassword(selectResultSet.getString("CONTRASENIA"));
 	            
 	            usuarios = Optional.ofNullable(usuario);
 	

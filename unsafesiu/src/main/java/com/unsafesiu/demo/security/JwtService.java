@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.unsafesiu.demo.usuario.Usuario;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -35,15 +36,19 @@ public class JwtService {
 	    return claimsResolver.apply(claims);
 	  }
 
-	  public String generateToken(UserDetails userDetails) {
-	    return generateToken(new HashMap<>(), userDetails);
+	  public String generateToken(Usuario usuario) {
+	    return generateToken(new HashMap<>(), usuario);
 	  }
 
 	  public String generateToken(
 	      Map<String, Object> extraClaims,
-	      UserDetails userDetails
+		  Usuario usuario
 	  ) {
-	    return buildToken(extraClaims, userDetails, jwtExpiration);
+		  extraClaims.put("nombre", usuario.getNombre());
+		  extraClaims.put("apellido", usuario.getApellido());
+		  extraClaims.put("rol", usuario.getRol());
+		  extraClaims.put("usuario", usuario.getUsername());
+		  return buildToken(extraClaims, usuario, jwtExpiration);
 	  }
 
 	  public String generateRefreshToken(
@@ -60,7 +65,6 @@ public class JwtService {
 	    return Jwts
 	            .builder()
 	            .setClaims(extraClaims)
-	            .setSubject(userDetails.getUsername())
 	            .setIssuedAt(new Date(System.currentTimeMillis()))
 	            .setExpiration(new Date(System.currentTimeMillis() + expiration))
 	            .signWith(getSignInKey(), SignatureAlgorithm.HS256)

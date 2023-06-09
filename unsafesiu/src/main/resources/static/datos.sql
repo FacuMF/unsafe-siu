@@ -19,6 +19,13 @@ CREATE TABLE Inscripcion (
     ID_Materia INTEGER REFERENCES Materia(ID)
 );
 
+CREATE TABLE Calificacion (
+    ID SERIAL PRIMARY KEY,
+    ID_Inscripcion INTEGER REFERENCES inscripcion(ID),
+    Calificacion DECIMAL,
+    Descripcion_Examen VARCHAR
+);
+
 insert into materia (nombre) values ('Seguridad en Aplicaciones Web');
 insert into materia (nombre) values ('Proyecto Final');
 insert into materia (nombre) values ('Administracion Gerencial');
@@ -33,3 +40,5 @@ insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values (
 insert into inscripcion (id, id_alumno, id_materia) values (1, 1, 1);
 insert into inscripcion (id, id_alumno, id_materia) values (2, 1, 2);
 insert into inscripcion (id, id_alumno, id_materia) values (3, 1, 3);
+
+insert into calificacion (id_inscripcion, calificacion, descripcion_examen) values (1, 10, 'Primer parcial');
