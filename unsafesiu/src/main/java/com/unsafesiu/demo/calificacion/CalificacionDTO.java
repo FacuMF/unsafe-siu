@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class CalificacionDTO {
 
     private int id;
-    private int idInscripcion;
     private BigDecimal calificacion;
     private String descripcionNota;
 
@@ -15,14 +14,6 @@ public class CalificacionDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdInscripcion() {
-        return idInscripcion;
-    }
-
-    public void setIdInscripcion(int idInscripcion) {
-        this.idInscripcion = idInscripcion;
     }
 
     public BigDecimal getCalificacion() {

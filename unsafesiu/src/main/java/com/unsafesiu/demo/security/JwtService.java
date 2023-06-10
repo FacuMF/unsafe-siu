@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import com.unsafesiu.demo.usuario.Usuario;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-	
-	  private String secretKey = "77217A25432A462D4A614E635266556A586E3272357538782F413F4428472B4B";
+	  @Value("${secretKey}")
+	  private String secretKey;
 
 	  private long jwtExpiration = 86400000;//un dia
 
@@ -44,6 +45,7 @@ public class JwtService {
 	      Map<String, Object> extraClaims,
 		  Usuario usuario
 	  ) {
+		  extraClaims.put("idAlumno", usuario.getId());
 		  extraClaims.put("nombre", usuario.getNombre());
 		  extraClaims.put("apellido", usuario.getApellido());
 		  extraClaims.put("rol", usuario.getRol());
@@ -65,6 +67,7 @@ public class JwtService {
 	    return Jwts
 	            .builder()
 	            .setClaims(extraClaims)
+				.setSubject(userDetails.getUsername())
 	            .setIssuedAt(new Date(System.currentTimeMillis()))
 	            .setExpiration(new Date(System.currentTimeMillis() + expiration))
 	            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
