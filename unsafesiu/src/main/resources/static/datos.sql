@@ -19,9 +19,16 @@ CREATE TABLE Inscripcion (
     ID_Materia INTEGER REFERENCES Materia(ID)
 );
 
+CREATE TABLE Curso (
+    ID SERIAL PRIMARY KEY,
+    ID_Profesor INTEGER REFERENCES Usuario(ID),
+    ID_Materia INTEGER REFERENCES Materia(ID)
+);
+
 CREATE TABLE Calificacion (
     ID SERIAL PRIMARY KEY,
-    ID_Inscripcion INTEGER REFERENCES inscripcion(ID),
+    ID_Curso INTEGER REFERENCES Curso(ID),
+	ID_Alumno INTEGER REFERENCES Usuario(ID),
     Calificacion DECIMAL,
     Descripcion_Examen VARCHAR
 );

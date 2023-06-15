@@ -14,9 +14,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioDAO usuarioDao;
 
-    public List<Usuario> listarUsuarios() throws SQLException {
+    public List<Usuario> listarProfesores() throws SQLException {
 
-        List<Usuario> usuarios = usuarioDao.selectUsuarios();
+        List<Usuario> usuarios = usuarioDao.selectProfesores();
         return usuarios;
 
     }

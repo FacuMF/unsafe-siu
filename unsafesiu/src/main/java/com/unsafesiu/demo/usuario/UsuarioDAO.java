@@ -20,9 +20,9 @@ public class UsuarioDAO {
     @Autowired
     private PostgresDatasource postgresDatasource;
 
-    public List<Usuario> selectUsuarios() throws SQLException {
+    public List<Usuario> selectProfesores() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
-        String selectQuery = "SELECT * FROM USUARIO";
+        String selectQuery = "SELECT * FROM USUARIO WHERE rol = 'PROFESOR'";
         Connection conn = postgresDatasource.getConnection();
         PreparedStatement selectPreparedStatement = conn.prepareStatement(selectQuery);
 

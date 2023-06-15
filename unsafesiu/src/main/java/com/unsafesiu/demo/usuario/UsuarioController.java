@@ -19,10 +19,10 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    @PreAuthorize("hasRole('PROFESOR')")
+    @PreAuthorize("hasRole('RECTOR')")
     //@Secured({"ROLE_PROFESOR"})
-    public ResponseEntity<List<Usuario>> obtenerUsuarios() throws SQLException {
-        List<Usuario> usuarios = usuarioService.listarUsuarios();
+    public ResponseEntity<List<Usuario>> obtenerProfesores() throws SQLException {
+        List<Usuario> usuarios = usuarioService.listarProfesores();
         return ResponseEntity.ok(usuarios);
     }
 

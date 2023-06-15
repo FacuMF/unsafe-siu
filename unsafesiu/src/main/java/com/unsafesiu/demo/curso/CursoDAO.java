@@ -1,6 +1,7 @@
-package com.unsafesiu.demo.materia;
+package com.unsafesiu.demo.curso;
 
 import com.unsafesiu.demo.calificacion.CalificacionDTO;
+import com.unsafesiu.demo.materia.MateriaDTO;
 import com.unsafesiu.demo.datasource.PostgresDatasource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MateriaDAO{
+public class CursoDAO{
 
     @Autowired
     private PostgresDatasource postgresDatasource;
-    public Optional<List<MateriaDTO>> selectMateriasPorUsuario(int idAlumno) throws SQLException {
+    public Optional<List<MateriaDTO>> selectMateriasPorUsuario(int idProfesor) throws SQLException {
 
         List<MateriaDTO> materias = new ArrayList<>();
-        String selectQuery = "SELECT m.ID, m.NOMBRE FROM MATERIA m JOIN INSCRIPCION i ON m.ID = i.ID_MATERIA " +
-                "WHERE i.ID_ALUMNO = " + idAlumno;
+        String selectQuery = "SELECT m.id, m.nombre FROM Curso c, Usuario u, Materia m "
+        		+ "where  c.ID_Profesor = u.ID and c.ID_Materia = m.ID and c.ID_Profesor =  " + idProfesor;
 
         Connection conn = postgresDatasource.getConnection();
         PreparedStatement selectPreparedStatement = conn.prepareStatement(selectQuery);
@@ -40,20 +41,18 @@ public class MateriaDAO{
             MateriaDTO materia = new MateriaDTO();
             materia.setId(selectResultSet.getInt("ID"));
             materia.setNombre(selectResultSet.getString("NOMBRE"));
-
             materias.add(materia);
-
         }
         selectPreparedStatement.close();
         selectResultSet.close();
 
         return Optional.of(materias);
     }
+    
+    public Optional<List<CalificacionDTO>> selectCalificacionesPorUsuarioYMateria(Integer idProfesor, Integer idMateria) throws SQLException {
 
-    public Optional<List<CalificacionDTO>> selectCalificacionesPorUsuarioYMateria(Integer idAlumno, Integer idMateria) throws SQLException {
-
-        String query = "select n.id , n.calificacion, n.descripcion_examen from calificacion n , curso c where  "
-        		+ "n.id_curso = c.id and n.id_alumno = " + idAlumno + " and c.id_materia = " + idMateria ;
+        String query = "SELECT n.id, n.calificacion, n.descripcion_examen  FROM Curso c, Usuario u, calificacion "
+        		+ "where  c.ID_Profesor = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor;
 
         Connection conn = postgresDatasource.getConnection();
         PreparedStatement selectPreparedStatement = conn.prepareStatement(query);
@@ -79,4 +78,24 @@ public class MateriaDAO{
 
         return Optional.ofNullable(calificaciones);
     }
+    
+    public void insertarCalificaciones(int idProfesor, CalificacionDTO calificacion)throws SQLException  {
+    	 String insertQuery = "insert into calificacion (id_curso,id_alumno, calificacion, descripcion_examen) "
+    	 		+ "values ("+calificacion.getId_curso()+" , "+calificacion.getId_alumno()+" , "+ calificacion.getCalificacion()+" , "+ calificacion.getDescripcionNota()+")";
+    	 Connection conn = postgresDatasource.getConnection();
+    	 PreparedStatement insertPreparedStatement = conn.prepareStatement(insertQuery);
+    	 insertPreparedStatement.executeUpdate();
+    	 insertPreparedStatement.close();
+    }
+    
+    public void actualizarCalificacion(int idProfesor, CalificacionDTO calificacion)throws SQLException  {
+   	 String insertQuery = "UPDATE calificacion  "
+   	 		+ " SET calificacion =  "+calificacion.getCalificacion()+" , descripcion_examen = " + calificacion.getDescripcionNota()
+   	 		+ " WHERE id = " + calificacion.getId();
+   	 Connection conn = postgresDatasource.getConnection();
+   	 PreparedStatement insertPreparedStatement = conn.prepareStatement(insertQuery);
+   	 insertPreparedStatement.executeUpdate();
+   	 insertPreparedStatement.close();
+   }
+    
 }
