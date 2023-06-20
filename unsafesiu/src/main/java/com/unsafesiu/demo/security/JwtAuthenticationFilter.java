@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.security.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -52,11 +54,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     username = jwtService.extractUsername(jwt);
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-//      var isTokenValid = tokenRepository.findByToken(jwt)
-//          .map(t -> !t.isExpired() && !t.isRevoked())
-//          .orElse(false);
-      System.out.println(userDetails.getAuthorities());
-      if (jwtService.isTokenValid(jwt, userDetails) /*&& isTokenValid*/) {
+
+      if (jwtService.isTokenValid(jwt, userDetails)) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails,
             null,

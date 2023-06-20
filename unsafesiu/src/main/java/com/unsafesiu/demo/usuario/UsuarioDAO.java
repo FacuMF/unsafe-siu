@@ -82,14 +82,15 @@ public class UsuarioDAO {
     
     public Optional<Usuario> findByUsernameAndPassword(String username, String password) {
         Optional<Usuario> usuarios = Optional.ofNullable(null);
-        String selectQuery = "SELECT * FROM USUARIO WHERE USUARIO = '" + username + "' AND CONTRASENIA = '" + password + "'";
+        String selectQuery = "SELECT * FROM USUARIO WHERE USUARIO = '" + username + "' AND CONTRASENIA = '" + password + "'\nLIMIT 1";
         Connection conn = postgresDatasource.getConnection();
         try {
 	        PreparedStatement selectPreparedStatement = conn.prepareStatement(selectQuery);
 	        
 	        ResultSet selectResultSet = selectPreparedStatement.executeQuery();
 	        
-	        while(selectResultSet.next()){
+	        if(selectResultSet.next()){
+	        	
 	            Usuario usuario = new Usuario();
 	
 	            usuario.setId(Integer.valueOf(selectResultSet.getString("ID")));
