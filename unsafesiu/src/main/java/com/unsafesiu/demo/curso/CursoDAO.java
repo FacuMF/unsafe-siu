@@ -1,6 +1,7 @@
 package com.unsafesiu.demo.curso;
 
 import com.unsafesiu.demo.calificacion.CalificacionDTO;
+import com.unsafesiu.demo.calificacion.CalificacionesProfesorDTO;
 import com.unsafesiu.demo.materia.MateriaDTO;
 import com.unsafesiu.demo.datasource.PostgresDatasource;
 
@@ -49,10 +50,10 @@ public class CursoDAO{
         return Optional.of(materias);
     }
     
-    public Optional<List<CalificacionDTO>> selectCalificacionesPorUsuarioYMateria(Integer idProfesor, Integer idMateria) throws SQLException {
+    public Optional<List<CalificacionesProfesorDTO>> selectCalificacionesPorUsuarioYMateria(Integer idProfesor, Integer idMateria) throws SQLException {
 
-        String query = "SELECT n.id, n.calificacion, n.descripcion_examen, n.id_alumno, n.id_curso FROM Curso c, Usuario u, calificacion n "
-        		+ "where  c.ID_Profesor = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor;
+        String query = "SELECT n.id, n.calificacion, n.descripcion_examen, u.nombre, u.apellido, n.id_curso FROM Curso c, Usuario u, calificacion n "
+        		+ "where  n.ID_alumno = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor;
 
         Connection conn = postgresDatasource.getConnection();
         PreparedStatement selectPreparedStatement = conn.prepareStatement(query);
@@ -63,14 +64,15 @@ public class CursoDAO{
             return Optional.empty();
         }
 
-        List<CalificacionDTO> calificaciones = new ArrayList<>();
+        List<CalificacionesProfesorDTO> calificaciones = new ArrayList<>();
 
         while(selectResultSet.next()) {
 
-            CalificacionDTO calificacionDTO = new CalificacionDTO();
+            CalificacionesProfesorDTO calificacionDTO = new CalificacionesProfesorDTO();
             calificacionDTO.setId(selectResultSet.getInt("ID"));
-            calificacionDTO.setId_alumno(selectResultSet.getInt("ID_ALUMNO"));//TODO: cambiar a otro DTO
             calificacionDTO.setId_curso(selectResultSet.getInt("ID_CURSO"));
+            calificacionDTO.setNombre(selectResultSet.getString("NOMBRE"));//TODO: cambiar a otro DTO
+            calificacionDTO.setApellido(selectResultSet.getString("APELLIDO"));
             calificacionDTO.setCalificacion(selectResultSet.getBigDecimal("CALIFICACION"));
             calificacionDTO.setDescripcionNota((selectResultSet.getString("DESCRIPCION_EXAMEN")));
 

@@ -1,6 +1,7 @@
 package com.unsafesiu.demo.curso;
 
 import com.unsafesiu.demo.calificacion.CalificacionDTO;
+import com.unsafesiu.demo.calificacion.CalificacionesProfesorDTO;
 import com.unsafesiu.demo.materia.MateriaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,9 +23,9 @@ public class CursoService {
         return materias;
     }
     
-    public List<CalificacionDTO> listarCalificaciones(Integer idProfesor, Integer idMateria) throws SQLException {
+    public List<CalificacionesProfesorDTO> listarCalificaciones(Integer idProfesor, Integer idMateria) throws SQLException {
 
-        List<CalificacionDTO> calificacionDTOS = cursoDAO.selectCalificacionesPorUsuarioYMateria(idProfesor, idMateria).orElse(null);
+        List<CalificacionesProfesorDTO> calificacionDTOS = cursoDAO.selectCalificacionesPorUsuarioYMateria(idProfesor, idMateria).orElse(null);
         return calificacionDTOS;
     }
     

@@ -1,6 +1,7 @@
 package com.unsafesiu.demo.curso;
 
 import com.unsafesiu.demo.calificacion.CalificacionDTO;
+import com.unsafesiu.demo.calificacion.CalificacionesProfesorDTO;
 import com.unsafesiu.demo.materia.MateriaDTO;
 
 import io.jsonwebtoken.Claims;
@@ -41,11 +42,11 @@ public class CursoController {
 
     @GetMapping(path = "/{idMateria}/calificaciones")
     @PreAuthorize("hasRole('PROFESOR')")
-    public ResponseEntity<List<CalificacionDTO>> obtenerCalificacionPorMateria(@RequestHeader("Authorization") String token, @PathVariable("idMateria") Integer idMateria) throws SQLException {
+    public ResponseEntity<List<CalificacionesProfesorDTO>> obtenerCalificacionPorMateria(@RequestHeader("Authorization") String token, @PathVariable("idMateria") Integer idMateria) throws SQLException {
         Claims claims = getTokenInfo(token);
         Integer idProfesor = claims.get("id", Integer.class);
 
-        List<CalificacionDTO> calificacionDTOS = cursoService.listarCalificaciones(idProfesor, idMateria);
+        List<CalificacionesProfesorDTO> calificacionDTOS = cursoService.listarCalificaciones(idProfesor, idMateria);
 
         return ResponseEntity.ok(calificacionDTOS);
     }
