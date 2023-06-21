@@ -51,7 +51,7 @@ public class CursoDAO{
     
     public Optional<List<CalificacionDTO>> selectCalificacionesPorUsuarioYMateria(Integer idProfesor, Integer idMateria) throws SQLException {
 
-        String query = "SELECT n.id, n.calificacion, n.descripcion_examen  FROM Curso c, Usuario u, calificacion "
+        String query = "SELECT n.id, n.calificacion, n.descripcion_examen, n.id_alumno, n.id_curso FROM Curso c, Usuario u, calificacion n "
         		+ "where  c.ID_Profesor = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor;
 
         Connection conn = postgresDatasource.getConnection();
@@ -69,6 +69,8 @@ public class CursoDAO{
 
             CalificacionDTO calificacionDTO = new CalificacionDTO();
             calificacionDTO.setId(selectResultSet.getInt("ID"));
+            calificacionDTO.setId_alumno(selectResultSet.getInt("ID_ALUMNO"));//TODO: cambiar a otro DTO
+            calificacionDTO.setId_curso(selectResultSet.getInt("ID_CURSO"));
             calificacionDTO.setCalificacion(selectResultSet.getBigDecimal("CALIFICACION"));
             calificacionDTO.setDescripcionNota((selectResultSet.getString("DESCRIPCION_EXAMEN")));
 

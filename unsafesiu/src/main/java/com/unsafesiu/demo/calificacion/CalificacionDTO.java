@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class CalificacionDTO {
 
     private int id;
-    private int id_curso;
-    private int id_alumno;
+    private Integer id_curso;
+    private Integer id_alumno;
     private BigDecimal calificacion;
     private String descripcionNota;
 
@@ -38,7 +38,7 @@ public class CalificacionDTO {
 		return id_curso;
 	}
 
-	public void setId_curso(int id_curso) {
+	public void setId_curso(Integer id_curso) {
 		this.id_curso = id_curso;
 	}
 
@@ -46,7 +46,7 @@ public class CalificacionDTO {
 		return id_alumno;
 	}
 
-	public void setId_alumno(int id_alumno) {
+	public void setId_alumno(Integer id_alumno) {
 		this.id_alumno = id_alumno;
 	}
 }

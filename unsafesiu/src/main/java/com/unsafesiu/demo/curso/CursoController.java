@@ -34,7 +34,7 @@ public class CursoController {
     public ResponseEntity<List<MateriaDTO>> obtenerCursos(@RequestHeader("Authorization") String token) throws SQLException {
 
         Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("idProfesor", Integer.class);
+        Integer idProfesor = claims.get("id", Integer.class);
         List<MateriaDTO> materias = cursoService.listarMaterias(idProfesor);
         return ResponseEntity.ok(materias);
     }
@@ -43,7 +43,7 @@ public class CursoController {
     @PreAuthorize("hasRole('PROFESOR')")
     public ResponseEntity<List<CalificacionDTO>> obtenerCalificacionPorMateria(@RequestHeader("Authorization") String token, @PathVariable("idMateria") Integer idMateria) throws SQLException {
         Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("idProfesor", Integer.class);
+        Integer idProfesor = claims.get("id", Integer.class);
 
         List<CalificacionDTO> calificacionDTOS = cursoService.listarCalificaciones(idProfesor, idMateria);
 
@@ -54,7 +54,7 @@ public class CursoController {
     @PreAuthorize("hasRole('PROFESOR')")
     public void insertarCalificacion(@RequestHeader("Authorization") String token,@RequestBody CalificacionDTO calificacion) throws SQLException {
         Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("idProfesor", Integer.class);
+        Integer idProfesor = claims.get("id", Integer.class);
         cursoService.insertarCalificacion(idProfesor,calificacion);
     }
     
@@ -62,7 +62,7 @@ public class CursoController {
     @PreAuthorize("hasRole('PROFESOR')")
     public void actualizarCalificacion(@RequestHeader("Authorization") String token,@RequestBody CalificacionDTO calificacion) throws SQLException {
         Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("idProfesor", Integer.class);
+        Integer idProfesor = claims.get("id", Integer.class);
         cursoService.actualizarCalificacion(idProfesor,calificacion);
     }
 
