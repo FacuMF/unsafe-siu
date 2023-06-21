@@ -20,6 +20,16 @@ import com.unsafesiu.demo.usuario.UsuarioService;
 @RequestMapping("/login")
 @RestController
 public class AuthenticationController {
+	
+	private class AuthDTO{
+		public String token;
+		public String rol;
+		
+		public AuthDTO(String token, String rol) {
+			this.token = token;
+			this.rol = rol;
+		}
+	}
 
 	@Autowired
     private UsuarioService usuarioService;
@@ -28,14 +38,16 @@ public class AuthenticationController {
 	private JwtService jwtService;
 
     @PostMapping
-    public ResponseEntity<String> getToken(@RequestBody AuthenticationRequest body) throws SQLException {
+    public ResponseEntity<AuthDTO> getToken(@RequestBody AuthenticationRequest body) throws SQLException {
+    	
+    	
     	String token = null;
         Usuario usuario = usuarioService.findByUsernameAndPassword(body.getUsername(), body.getPassword()).orElse(null);
         if(usuario == null) {
-        	return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+        	return new ResponseEntity<AuthDTO>(HttpStatus.UNAUTHORIZED);
         }
-        token = jwtService.generateToken(usuario);        	
-        return ResponseEntity.ok(token);
+        token = jwtService.generateToken(usuario);
+        return ResponseEntity.ok(new AuthDTO(token, usuario.getAuthorities().iterator().next().toString()));
     }
 	
 }
