@@ -50,20 +50,16 @@ public class CursoController {
         return ResponseEntity.ok(calificacionDTOS);
     }
     
-    @PostMapping
+    @PostMapping("/calificaciones")
     @PreAuthorize("hasRole('PROFESOR')")
     public void insertarCalificacion(@RequestHeader("Authorization") String token,@RequestBody CalificacionDTO calificacion) throws SQLException {
-        Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("id", Integer.class);
-        cursoService.insertarCalificacion(idProfesor,calificacion);
+        cursoService.insertarCalificacion(calificacion);
     }
     
-    @PutMapping
+    @PutMapping("/calificaciones")
     @PreAuthorize("hasRole('PROFESOR')")
     public void actualizarCalificacion(@RequestHeader("Authorization") String token,@RequestBody CalificacionDTO calificacion) throws SQLException {
-        Claims claims = getTokenInfo(token);
-        Integer idProfesor = claims.get("id", Integer.class);
-        cursoService.actualizarCalificacion(idProfesor,calificacion);
+        cursoService.actualizarCalificacion(calificacion);
     }
 
     private Claims getTokenInfo(String token) {

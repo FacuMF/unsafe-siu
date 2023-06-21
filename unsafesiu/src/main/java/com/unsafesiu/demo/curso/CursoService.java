@@ -28,11 +28,11 @@ public class CursoService {
         return calificacionDTOS;
     }
     
-    public void insertarCalificacion(int idProfesor, CalificacionDTO calificacion)throws SQLException {
-    	cursoDAO.insertarCalificaciones(idProfesor,calificacion);
+    public void insertarCalificacion(CalificacionDTO calificacion)throws SQLException {
+    	cursoDAO.insertarCalificaciones(calificacion);
     }
     
-    public void actualizarCalificacion(int idProfesor, CalificacionDTO calificacion)throws SQLException {
-    	cursoDAO.actualizarCalificacion(idProfesor,calificacion);
+    public void actualizarCalificacion(CalificacionDTO calificacion)throws SQLException {
+    	cursoDAO.actualizarCalificacion(calificacion);
     }
 }

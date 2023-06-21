@@ -81,18 +81,18 @@ public class CursoDAO{
         return Optional.ofNullable(calificaciones);
     }
     
-    public void insertarCalificaciones(int idProfesor, CalificacionDTO calificacion)throws SQLException  {
-    	 String insertQuery = "insert into calificacion (id_curso,id_alumno, calificacion, descripcion_examen) "
-    	 		+ "values ("+calificacion.getId_curso()+" , "+calificacion.getId_alumno()+" , "+ calificacion.getCalificacion()+" , "+ calificacion.getDescripcionNota()+")";
+    public void insertarCalificaciones(CalificacionDTO calificacion)throws SQLException  {
+    	 String insertQuery = "insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) "
+    	 		+ "values ("+calificacion.getId_curso()+" , "+calificacion.getId_alumno()+" , "+ calificacion.getCalificacion()+" , '"+ calificacion.getDescripcionNota()+"')";
     	 Connection conn = postgresDatasource.getConnection();
     	 PreparedStatement insertPreparedStatement = conn.prepareStatement(insertQuery);
     	 insertPreparedStatement.executeUpdate();
     	 insertPreparedStatement.close();
     }
     
-    public void actualizarCalificacion(int idProfesor, CalificacionDTO calificacion)throws SQLException  {
+    public void actualizarCalificacion(CalificacionDTO calificacion)throws SQLException  {
    	 String insertQuery = "UPDATE calificacion  "
-   	 		+ " SET calificacion =  "+calificacion.getCalificacion()+" , descripcion_examen = " + calificacion.getDescripcionNota()
+   	 		+ " SET calificacion =  "+calificacion.getCalificacion()+" , descripcion_examen = '" + calificacion.getDescripcionNota() + "'"
    	 		+ " WHERE id = " + calificacion.getId();
    	 Connection conn = postgresDatasource.getConnection();
    	 PreparedStatement insertPreparedStatement = conn.prepareStatement(insertQuery);
