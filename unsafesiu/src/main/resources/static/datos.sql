@@ -44,15 +44,23 @@ insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values (
 insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values ('Juan Cruz', 'Salto', 'ALUMNO', 'juan-s', 'juan123', 'jsaltolastra@frba.utn.edu.ar');
 insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values ('Gonzalo', 'Vilanova', 'PROFESOR', 'gonzalo-v', 'gonzalo456', 'gvilanova@frba.utn.edu.ar');
 insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values ('Ruben', 'Soro', 'RECTOR', 'ruben-s', 'ruben789', 'rsoro@frba.utn.edu.ar');
+insert into usuario (nombre, apellido, rol, usuario, contrasenia, mail) values ('Juan', 'Perez', 'PROFESOR', 'juan-p', 'juan123', 'jperez@frba.utn.edu.ar');
 
 insert into inscripcion (id_alumno, id_materia) values (1, 1);
+insert into inscripcion (id_alumno, id_materia) values (1, 4);
 insert into inscripcion (id_alumno, id_materia) values (2, 1);
 insert into inscripcion (id_alumno, id_materia) values (3, 1);
 insert into inscripcion (id_alumno, id_materia) values (4, 1);
 
 insert into curso (id_profesor, id_materia) values (5, 1);
+insert into curso (id_profesor, id_materia) values (6, 4);
 
 insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 2, 'Primer parcial');
+insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 8, 'Segundo Parcial');
+insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 8, 'Primer Recuperatorio - Primer Parcial');
+insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 2, 'Primer parcial');
+insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 8, 'Segundo Parcial');
+insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 1, 8, 'Primer Recuperatorio - Primer Parcial');
 insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 2, 3, 'Primer parcial');
 insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 3, 1, 'Primer parcial');
 insert into calificacion (id_curso, id_alumno, calificacion, descripcion_examen) values (1, 4, 5.5, 'Primer parcial');
