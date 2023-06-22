@@ -53,7 +53,8 @@ public class CursoDAO{
     public Optional<List<CalificacionesProfesorDTO>> selectCalificacionesPorUsuarioYMateria(Integer idProfesor, Integer idMateria) throws SQLException {
 
         String query = "SELECT n.id, n.calificacion, n.descripcion_examen, u.nombre, u.apellido, n.id_curso FROM Curso c, Usuario u, calificacion n "
-        		+ "where  n.ID_alumno = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor;
+        		+ "where  n.ID_alumno = u.ID and n.id_curso = c.id and c.ID_Materia = " +idMateria+" and c.ID_Profesor = " + idProfesor + 
+        		"\nORDER BY u.nombre";
 
         Connection conn = postgresDatasource.getConnection();
         PreparedStatement selectPreparedStatement = conn.prepareStatement(query);
