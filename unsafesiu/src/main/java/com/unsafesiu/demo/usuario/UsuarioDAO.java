@@ -33,6 +33,7 @@ public class UsuarioDAO {
             usuario.setId(Integer.valueOf(selectResultSet.getString("ID")));
             usuario.setNombre(selectResultSet.getString("NOMBRE"));
             usuario.setApellido(selectResultSet.getString("APELLIDO"));
+            usuario.setMail(selectResultSet.getString("MAIL"));
             usuario.setRol(Role.valueOf(selectResultSet.getString("ROL")));
             usuario.setUsername(selectResultSet.getString("USUARIO"));
             usuario.setPassword(selectResultSet.getString("CONTRASENIA"));

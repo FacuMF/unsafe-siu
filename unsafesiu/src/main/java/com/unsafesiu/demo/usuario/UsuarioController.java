@@ -18,8 +18,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('RECTOR')")
+    @GetMapping("/profesores")
+    //@PreAuthorize("hasRole('RECTOR')")
     //@Secured({"ROLE_PROFESOR"})
     public ResponseEntity<List<Usuario>> obtenerProfesores() throws SQLException {
         List<Usuario> usuarios = usuarioService.listarProfesores();

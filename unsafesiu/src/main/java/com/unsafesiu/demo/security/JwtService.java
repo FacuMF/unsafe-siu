@@ -87,7 +87,7 @@ public class JwtService {
 	    return extractClaim(token, Claims::getExpiration);
 	  }
 
-	  private Claims extractAllClaims(String token) {
+	  public Claims extractAllClaims(String token) {
 		  int i = token.lastIndexOf('.');
 		  String withoutSignature = token.substring(0, i+1);
 	    return Jwts

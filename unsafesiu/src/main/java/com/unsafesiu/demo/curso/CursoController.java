@@ -3,6 +3,7 @@ package com.unsafesiu.demo.curso;
 import com.unsafesiu.demo.calificacion.CalificacionDTO;
 import com.unsafesiu.demo.calificacion.CalificacionesProfesorDTO;
 import com.unsafesiu.demo.materia.MateriaDTO;
+import com.unsafesiu.demo.security.JwtService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -26,6 +27,9 @@ public class CursoController {
 
     @Autowired
     private CursoService cursoService;
+    
+    @Autowired
+    private JwtService jwtService;
 
     @Value("${secretKey}")
     private String secretKey;
@@ -33,8 +37,8 @@ public class CursoController {
     @GetMapping
     @PreAuthorize("hasRole('PROFESOR')")
     public ResponseEntity<List<MateriaDTO>> obtenerCursos(@RequestHeader("Authorization") String token) throws SQLException {
-
-        Claims claims = getTokenInfo(token);
+    	token = token.substring(7);
+        Claims claims = jwtService.extractAllClaims(token);
         Integer idProfesor = claims.get("id", Integer.class);
         List<MateriaDTO> materias = cursoService.listarMaterias(idProfesor);
         return ResponseEntity.ok(materias);
@@ -43,7 +47,8 @@ public class CursoController {
     @GetMapping(path = "/{idMateria}/calificaciones")
     @PreAuthorize("hasRole('PROFESOR')")
     public ResponseEntity<List<CalificacionesProfesorDTO>> obtenerCalificacionPorMateria(@RequestHeader("Authorization") String token, @PathVariable("idMateria") Integer idMateria) throws SQLException {
-        Claims claims = getTokenInfo(token);
+    	token = token.substring(7);
+    	Claims claims = jwtService.extractAllClaims(token);//getTokenInfo(token);
         Integer idProfesor = claims.get("id", Integer.class);
 
         List<CalificacionesProfesorDTO> calificacionDTOS = cursoService.listarCalificaciones(idProfesor, idMateria);

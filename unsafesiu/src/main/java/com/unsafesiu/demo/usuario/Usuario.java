@@ -13,7 +13,7 @@ public class Usuario implements UserDetails {
     private Integer id;
     private String nombre;
     private String apellido;
-    @JsonIgnore
+    private String mail;
     private Role rol;
     private String username;
     @JsonIgnore
@@ -41,6 +41,14 @@ public class Usuario implements UserDetails {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getMail() {
+    	return mail;
+    }
+    
+    public void setMail(String mail) {
+    	this.mail = mail;
     }
 
 	public Role getRol() {
@@ -103,4 +111,5 @@ public class Usuario implements UserDetails {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
